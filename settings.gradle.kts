@@ -1,0 +1,1 @@
+rootProject.name = "medlemskap-oppslag-funksjonelle-tester"
