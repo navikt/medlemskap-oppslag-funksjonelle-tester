@@ -1,4 +1,6 @@
 val cucumberVersion = "5.6.0"
+val ktorVersion = "1.3.2"
+val jacksonVersion = "2.10.4"
 
 val logback_version: String by project
 val ktor_version: String by project
@@ -24,8 +26,21 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-auth:$ktorVersion")
+    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-apache:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-json:$ktorVersion")
+    implementation("io.ktor:ktor-client-jackson:$ktorVersion")
     implementation("io.cucumber:cucumber-junit:${cucumberVersion}")
     implementation("io.cucumber:cucumber-java8:${cucumberVersion}")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation("com.google.code.gson:gson:2.8.5")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src/kotlin")
