@@ -43,9 +43,9 @@ spec:
             #- -cn=secret:secret/medlemskap/testdata/fnr/:dir=/var/run/secrets/nais.io/test_data,fmt=flatten
           env:
             - name: NAV_TRUSTSTORE_PATH
-                value: /etc/ssl/certs/java/cacerts
-                - name: NAV_TRUSTSTORE_PASSWORD
-                  value: changeme
+              value: /etc/ssl/certs/java/cacerts
+            - name: NAV_TRUSTSTORE_PASSWORD
+              value: changeme
             - name: VAULT_AUTH_METHOD
               value: kubernetes
             - name: VAULT_SIDEKICK_ROLE
