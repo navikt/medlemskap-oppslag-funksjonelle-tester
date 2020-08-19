@@ -20,6 +20,12 @@ application {
     mainClassName = "no.nav.medlemskap.RunCucumberKt"
 }
 
+val jar by tasks.getting(Jar::class) {
+    manifest {
+        attributes["Main-Class"] = "no.nav.medlemskap.RunCucumberKt"
+    }
+}
+
 repositories {
     mavenLocal()
     jcenter()
