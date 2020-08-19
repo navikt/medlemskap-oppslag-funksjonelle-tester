@@ -7,9 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JacksonSerializer
 import io.ktor.client.features.json.JsonFeature
-import io.ktor.http.contentLength
-import io.ktor.http.contentType
-import io.ktor.utils.io.readAvailable
+import io.cucumber.core.cli.Main
 import mu.KotlinLogging
 
 val args = arrayOf(
@@ -42,5 +40,5 @@ suspend fun main() {
 
     val medlemskapResponse = medlemskapClient.hentMedlemskap()
     println("medlemskap-kall: " + medlemskapResponse.status.value + " " + medlemskapResponse.status.description)
-    //Main.main(*args)
+    Main.main(*args)
 }

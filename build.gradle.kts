@@ -1,3 +1,6 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer
+
 val cucumberVersion = "5.6.0"
 val ktorVersion = "1.3.2"
 val jacksonVersion = "2.10.4"
@@ -8,8 +11,11 @@ val logback_version: String by project
 val ktor_version: String by project
 val kotlin_version: String by project
 
+val mainClass = "no.nav.medlemskap.RunCucumberKt"
+
 plugins {
     application
+    id("com.github.johnrengelman.shadow") version "6.0.0"
     kotlin("jvm") version "1.3.70"
 }
 
@@ -18,12 +24,6 @@ version = "0.0.1-SNAPSHOT"
 
 application {
     mainClassName = "no.nav.medlemskap.RunCucumberKt"
-}
-
-val jar by tasks.getting(Jar::class) {
-    manifest {
-        attributes["Main-Class"] = "no.nav.medlemskap.RunCucumberKt"
-    }
 }
 
 repositories {
@@ -55,3 +55,34 @@ dependencies {
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src/kotlin")
 sourceSets["main"].resources.srcDirs("src/resources")
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+
+tasks.withType<Wrapper> {
+    gradleVersion = "6.6"
+}
+
+tasks.withType<ShadowJar> {
+    archiveBaseName.set("app")
+    archiveClassifier.set("")
+    manifest {
+        attributes(
+            mapOf(
+                "Main-Class" to mainClass
+            )
+        )
+    }
+    transform(ServiceFileTransformer::class.java) {
+        setPath("META-INF/cxf")
+        include("bus-extensions.txt")
+    }
+}
