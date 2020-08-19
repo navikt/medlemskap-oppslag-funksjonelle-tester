@@ -7,7 +7,10 @@ import io.ktor.content.*
 import io.ktor.http.*
 import java.time.LocalDateTime
 
-class AzureAdClient(private val httpClient: HttpClient) {
+class AzureAdClient(
+    private val httpClient: HttpClient,
+    private val configuration: Configuration.AzureAd
+) {
 
     suspend fun hentToken(): Token {
 
@@ -21,12 +24,9 @@ class AzureAdClient(private val httpClient: HttpClient) {
             scope=api://<client_id>/.default
             client_secret=<client_secret>
             grant_type=client_credentials
-
-        URL:
-            https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/oauth2/v2.0/token
          */
-        val azureAdUrl = "https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/oauth2/v2.0/token"
-        val clientId = "hentesFraVault"
+        val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
+        val clientId = configuration.clientId
         val clientSecret = "hentesFraVault"
 
         val formUrlEncode = listOf(

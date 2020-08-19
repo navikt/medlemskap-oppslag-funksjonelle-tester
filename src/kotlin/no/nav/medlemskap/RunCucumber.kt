@@ -10,10 +10,7 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.http.contentLength
 import io.ktor.http.contentType
 import io.ktor.utils.io.readAvailable
-
-//import mu.KotlinLogging
-
-//private val log = KotlinLogging.logger {}
+import mu.KotlinLogging
 
 val args = arrayOf(
     "--threads", "2",
@@ -23,8 +20,11 @@ val args = arrayOf(
     "--tags", "not @ignored "
 )
 
+private val logger = KotlinLogging.logger {}
+
 suspend fun main() {
 
+    logger.info("Funksjonelle tester started")
     val httpClient = HttpClient {
         install(JsonFeature) {
             serializer = JacksonSerializer {
@@ -35,8 +35,9 @@ suspend fun main() {
             }
         }
     }
-
-    val azureAdClient = AzureAdClient(httpClient)
+    val configuration = Configuration()
+    val azureAdClient = AzureAdClient(httpClient, configuration.azureAd)
+    logger.info("Azure Ad Client created")
     val medlemskapClient = MedlemskapClient("http://localhost:8080", azureAdClient, httpClient)
 
     val medlemskapResponse = medlemskapClient.hentMedlemskap()

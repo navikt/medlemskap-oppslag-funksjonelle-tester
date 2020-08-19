@@ -39,9 +39,13 @@ spec:
             - -vault=https://vault.adeo.no
             - -save-token=/var/run/secrets/nais.io/vault/vault_token
             - -one-shot
-            - -cn=secret:serviceuser/data/dev/srvdp-funk-test:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
-            - -cn=secret:secret/teamdagpenger/testdata/saksbehandling/:dir=/var/run/secrets/nais.io/test_data,fmt=flatten
+            - -cn=secret:serviceuser/data/dev/srvmedlemskap-ft:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
+            #- -cn=secret:secret/medlemskap/testdata/fnr/:dir=/var/run/secrets/nais.io/test_data,fmt=flatten
           env:
+            - name: NAV_TRUSTSTORE_PATH
+                value: /etc/ssl/certs/java/cacerts
+                - name: NAV_TRUSTSTORE_PASSWORD
+                  value: changeme
             - name: VAULT_AUTH_METHOD
               value: kubernetes
             - name: VAULT_SIDEKICK_ROLE
@@ -55,9 +59,9 @@ spec:
             - mountPath: /var/run/secrets/nais.io/service_user
               name: vault-secrets
               subPath: subpath/var/run/secrets/nais.io/service_user
-            - mountPath: /var/run/secrets/nais.io/test_data
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/test_data
+            # - mountPath: /var/run/secrets/nais.io/test_data
+            #   name: vault-secrets
+            #   subPath: subpath/var/run/secrets/nais.io/test_data
       containers:
         - name: medlemskap-oppslag-funksjonelle-tester
           resources:
@@ -68,58 +72,19 @@ spec:
               cpu: "0.5"
               memory: "512Mi"
           env:
+            - name: AZURE_TENANT
+              value: 966ac572-f5b7-4bbe-aa88-c76419c0f851
+            - name: AZURE_AUTHORITY_ENDPOINT
+              value: https://login.microsoftonline.com
             - name: CUCUMBER_ENV
               value: dev
             - name: NAV_TRUSTSTORE_PATH
               value: /etc/ssl/certs/java/cacerts
             - name: NAV_TRUSTSTORE_PASSWORD
               value: changeme
-
           image: {{image}}
           imagePullPolicy: Always
-          volumeMounts:
-            - mountPath: /etc/ssl/certs/ca-certificates.crt
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/pki/tls/certs/ca-bundle.crt
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/ssl/ca-bundle.pem
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/pki/tls/cacert.pem
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/ssl/certs/java/cacerts
-              name: ca-bundle-jks
-              readOnly: true
-              subPath: ca-bundle.jks
-            - mountPath: /var/run/secrets/nais.io/vault/
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/vault
-            - mountPath: /var/run/secrets/nais.io/service_user
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/service_user
-            - mountPath: /var/run/secrets/nais.io/test_data
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/test_data
       volumes:
         - name: vault-secrets
           emptyDir:
             medium: Memory
-        - name: ca-bundle-pem
-          configMap:
-            defaultMode: 420
-            name: ca-bundle-pem
-        - name: ca-bundle-jks
-          configMap:
-            defaultMode: 420
-            name: ca-bundle-jks

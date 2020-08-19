@@ -1,6 +1,8 @@
 val cucumberVersion = "5.6.0"
 val ktorVersion = "1.3.2"
 val jacksonVersion = "2.10.4"
+val konfigVersion = "1.6.10.0"
+val kotlinLoggerVersion = "1.8.3"
 
 val logback_version: String by project
 val ktor_version: String by project
@@ -41,6 +43,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.natpryce:konfig:$konfigVersion")
+    implementation("io.github.microutils:kotlin-logging:$kotlinLoggerVersion")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src/kotlin")

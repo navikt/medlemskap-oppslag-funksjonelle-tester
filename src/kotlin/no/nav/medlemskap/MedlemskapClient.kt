@@ -9,7 +9,10 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
+import mu.KotlinLogging
 import java.time.LocalDate
+
+private val secureLogger = KotlinLogging.logger("tjenestekall")
 
 class MedlemskapClient(
     private val baseUrl: String,
@@ -19,6 +22,7 @@ class MedlemskapClient(
 
     suspend fun hentMedlemskap(): HttpResponse {
         val token = azureAdClient.hentToken()
+        secureLogger.info("Hentet AzureAd-token")
         val medlemskapRequest = MedlemskapRequest(
             "lastesFraVault",
             MedlemskapRequest.Periode(LocalDate.now().minusDays(10), LocalDate.now()),
