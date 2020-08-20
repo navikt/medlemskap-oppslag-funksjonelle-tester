@@ -42,6 +42,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-json:$ktorVersion")
     implementation("io.ktor:ktor-client-jackson:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     implementation("io.cucumber:cucumber-junit:${cucumberVersion}")
     implementation("io.cucumber:cucumber-java8:${cucumberVersion}")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")

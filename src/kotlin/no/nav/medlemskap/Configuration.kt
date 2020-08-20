@@ -55,5 +55,3 @@ data class Configuration(
         val authorityEndpoint: String = "AZURE_AUTHORITY_ENDPOINT".configProperty().removeSuffix("/")
     )
 }
-
-

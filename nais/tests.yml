@@ -83,6 +83,10 @@ spec:
             - name: NAV_TRUSTSTORE_PASSWORD
               value: changeme
           image: {{image}}
+          azure:
+            application:
+              enabled: true
+            webproxy: true
           imagePullPolicy: Always
       volumes:
         - name: vault-secrets

@@ -5,7 +5,10 @@ import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.content.*
 import io.ktor.http.*
+import mu.KotlinLogging
 import java.time.LocalDateTime
+
+private val sikkerlogg = KotlinLogging.logger("tjenestekall")
 
 class AzureAdClient(
     private val httpClient: HttpClient,
@@ -27,6 +30,9 @@ class AzureAdClient(
          */
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val clientId = configuration.clientId
+
+        println("endpoint: ${configuration.authorityEndpoint}")
+        sikkerlogg.info("sikkerlogg endpoint: ${configuration.authorityEndpoint}")
         val clientSecret = "hentesFraVault"
 
         val formUrlEncode = listOf(
