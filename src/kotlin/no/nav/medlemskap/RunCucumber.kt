@@ -51,6 +51,7 @@ suspend fun main() {
     sikkerlogg.info("Configuration satt opp")
     val azureAdClient = AzureAdClient(httpClient, configuration.azureAd)
 
+    val hentToken = azureAdClient.hentToken()
     /*
     logger.info("Azure Ad Client created")
     val medlemskapClient = MedlemskapClient("http://localhost:8080", azureAdClient, httpClient)
