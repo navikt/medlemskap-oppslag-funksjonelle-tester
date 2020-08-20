@@ -23,6 +23,8 @@ private val logger = KotlinLogging.logger {}
 suspend fun main() {
 
     logger.info("Funksjonelle tester started")
+    println("Funksjonelle tester startet")
+    /*
     val httpClient = HttpClient {
         install(JsonFeature) {
             serializer = JacksonSerializer {
@@ -35,10 +37,13 @@ suspend fun main() {
     }
     val configuration = Configuration()
     val azureAdClient = AzureAdClient(httpClient, configuration.azureAd)
+
     logger.info("Azure Ad Client created")
     val medlemskapClient = MedlemskapClient("http://localhost:8080", azureAdClient, httpClient)
 
     val medlemskapResponse = medlemskapClient.hentMedlemskap()
     println("medlemskap-kall: " + medlemskapResponse.status.value + " " + medlemskapResponse.status.description)
     Main.main(*args)
+
+     */
 }
