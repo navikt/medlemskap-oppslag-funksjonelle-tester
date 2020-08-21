@@ -40,7 +40,7 @@ spec:
             - -save-token=/var/run/secrets/nais.io/vault/vault_token
             - -one-shot
             - -cn=secret:serviceuser/data/dev/srvmedlemskap-ft:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
-            - -cn=secret:azuread/data/dev/creds/medlemskap-oppslag-funksjonelle-tester:dir=/var/run/secrets/nais.io/azuread,fmt=flatten
+            - -cn=secret:azuread/data/dev/creds/medlemskap-oppslag-funksjonelle-tester:dir=/var/run/secrets/nais.io/azuread
             #- -cn=secret:secret/medlemskap/testdata/fnr/:dir=/var/run/secrets/nais.io/test_data,fmt=flatten
           env:
             - name: NAV_TRUSTSTORE_PATH
