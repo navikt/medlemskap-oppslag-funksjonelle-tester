@@ -1,7 +1,6 @@
 package no.nav.medlemskap
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.content.*
 import io.ktor.http.*
@@ -10,10 +9,7 @@ import java.time.LocalDateTime
 
 private val sikkerlogg = KotlinLogging.logger("tjenestekall")
 
-class AzureAdClient(
-    private val httpClient: HttpClient,
-    private val configuration: Configuration.AzureAd
-) {
+class AzureAdClient(private val configuration: Configuration.AzureAd) {
 
     suspend fun hentToken(): Token {
 
@@ -31,7 +27,7 @@ class AzureAdClient(
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val clientId = configuration.clientId
 
-        println("endpoint: ${configuration.authorityEndpoint}")
+        println("azureAdUrl: $azureAdUrl")
         sikkerlogg.info("sikkerlogg endpoint: ${configuration.authorityEndpoint}")
         val clientSecret = "hentesFraVault"
 
@@ -42,7 +38,7 @@ class AzureAdClient(
             "grant_type" to "client_credentials"
         ).formUrlEncode()
 
-        return httpClient.post {
+        return apacheHttpClient.post {
             url(azureAdUrl)
             body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
         }

@@ -22,34 +22,15 @@ val args = arrayOf(
 )
 
 private val logger = KotlinLogging.logger {}
-private val sikkerlogg = KotlinLogging.logger("tjenestekall")
+
 suspend fun main() {
 
 
     println("Funksjonelle tester startet")
-
-    val httpClient = HttpClient {
-        install(JsonFeature) {
-            serializer = JacksonSerializer {
-                this.registerModule(JavaTimeModule())
-                    .configure(SerializationFeature.INDENT_OUTPUT, true)
-                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                    .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
-            }
-        }
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) = sikkerlogg.info { message }
-            }
-            level = LogLevel.ALL
-        }
-    }
-
     logger.info("Funksjonelle tester started")
 
     val configuration = Configuration()
-    sikkerlogg.info("Configuration satt opp")
-    val azureAdClient = AzureAdClient(httpClient, configuration.azureAd)
+    val azureAdClient = AzureAdClient(configuration.azureAd)
 
     val hentToken = azureAdClient.hentToken()
     /*
