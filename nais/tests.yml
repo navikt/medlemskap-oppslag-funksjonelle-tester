@@ -103,16 +103,17 @@ spec:
               value: -Dhttp.proxyHost=webproxy.nais -Dhttps.proxyHost=webproxy.nais -Dhttp.proxyPort=8088 -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=localhost|127.0.0.1|10.254.0.1|*.local|*.adeo.no|*.nav.no|*.aetat.no|*.devillo.no|*.oera.no|*.nais.io
           image: {{image}}
           imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /var/run/secrets/nais.io/vault
+              name: vault-secrets
+              subPath: subpath/var/run/secrets/nais.io/vault
+            - mountPath: /var/run/secrets/nais.io/service_user
+              name: vault-secrets
+              subPath: subpath/var/run/secrets/nais.io/service_user
+            - mountPath: /var/run/secrets/nais.io/azuread
+              name: vault-secrets
+              subPath: subpath/var/run/secrets/nais.io/azuread
       volumes:
         - name: vault-secrets
           emptyDir:
             medium: Memory
-        - mountPath: /var/run/secrets/nais.io/vault
-          name: vault-secrets
-          subPath: subpath/var/run/secrets/nais.io/vault
-        - mountPath: /var/run/secrets/nais.io/service_user
-          name: vault-secrets
-          subPath: subpath/var/run/secrets/nais.io/service_user
-        - mountPath: /var/run/secrets/nais.io/azuread
-          name: vault-secrets
-          subPath: subpath/var/run/secrets/nais.io/azuread
