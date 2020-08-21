@@ -33,6 +33,7 @@ suspend fun main() {
     val azureAdClient = AzureAdClient(configuration.azureAd)
 
     val hentToken = azureAdClient.hentToken()
+    println("Token type: " + hentToken.type)
     /*
     logger.info("Azure Ad Client created")
     val medlemskapClient = MedlemskapClient("http://localhost:8080", azureAdClient, httpClient)

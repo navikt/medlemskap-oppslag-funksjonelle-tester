@@ -26,10 +26,10 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
          */
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val clientId = configuration.clientId
+        val clientSecret = configuration.clientSecret
 
         println("azureAdUrl: $azureAdUrl")
         sikkerlogg.info("sikkerlogg endpoint: ${configuration.authorityEndpoint}")
-        val clientSecret = "hentesFraVault"
 
         val formUrlEncode = listOf(
             "client_id" to clientId,
