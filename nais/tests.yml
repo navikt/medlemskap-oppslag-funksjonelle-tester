@@ -40,6 +40,7 @@ spec:
             - -save-token=/var/run/secrets/nais.io/vault/vault_token
             - -one-shot
             - -cn=secret:serviceuser/data/dev/srvmedlemskap-ft:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
+            - -cn=secret:azuread/data/dev/creds/medlemskap-oppslag:dir=/var/run/secrets/nais.io/azuread,fmt=flatten
             #- -cn=secret:secret/medlemskap/testdata/fnr/:dir=/var/run/secrets/nais.io/test_data,fmt=flatten
           env:
             - name: NAV_TRUSTSTORE_PATH
@@ -59,6 +60,9 @@ spec:
             - mountPath: /var/run/secrets/nais.io/service_user
               name: vault-secrets
               subPath: subpath/var/run/secrets/nais.io/service_user
+            - mountPath: /var/run/secrets/nais.io/azuread
+              name: vault-secrets
+              subPath: subpath/var/run/secrets/nais.io/azuread
             # - mountPath: /var/run/secrets/nais.io/test_data
             #   name: vault-secrets
             #   subPath: subpath/var/run/secrets/nais.io/test_data
@@ -82,11 +86,21 @@ spec:
               value: /etc/ssl/certs/java/cacerts
             - name: NAV_TRUSTSTORE_PASSWORD
               value: changeme
+            - name: HTTP_PROXY
+              value: http://webproxy.nais:8088
+            - name: http_proxy
+              value: http://webproxy.nais:8088
+            - name: HTTPS_PROXY
+              value: http://webproxy.nais:8088
+            - name: https_proxy
+              value: http://webproxy.nais:8088
+            - name: NO_PROXY
+              value: localhost,127.0.0.1,10.254.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,.nais.io
+            - name: no_proxy
+              value: localhost,127.0.0.1,10.254.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,.nais.io
+            - name: JAVA_PROXY_OPTIONS
+              value: -Dhttp.proxyHost=webproxy.nais -Dhttps.proxyHost=webproxy.nais -Dhttp.proxyPort=8088 -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=localhost|127.0.0.1|10.254.0.1|*.local|*.adeo.no|*.nav.no|*.aetat.no|*.devillo.no|*.oera.no|*.nais.io
           image: {{image}}
-          azure:
-            application:
-              enabled: true
-          webproxy: true
           imagePullPolicy: Always
       volumes:
         - name: vault-secrets
