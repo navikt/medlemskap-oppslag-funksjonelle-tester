@@ -25,7 +25,6 @@ private val logger = KotlinLogging.logger {}
 
 suspend fun main() {
 
-
     println("Funksjonelle tester startet")
     logger.info("Funksjonelle tester started")
 
@@ -34,13 +33,9 @@ suspend fun main() {
 
     val hentToken = azureAdClient.hentToken()
     println("Token type: " + hentToken.type)
-    /*
-    logger.info("Azure Ad Client created")
-    val medlemskapClient = MedlemskapClient("http://localhost:8080", azureAdClient, httpClient)
+    val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient, httpClient)
 
-    val medlemskapResponse = medlemskapClient.hentMedlemskap()
+    val medlemskapResponse = medlemskapClient.hentMedlemskap(configuration.testperson)
     println("medlemskap-kall: " + medlemskapResponse.status.value + " " + medlemskapResponse.status.description)
     Main.main(*args)
-
-     */
 }

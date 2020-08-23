@@ -6,6 +6,7 @@ val ktorVersion = "1.3.2"
 val jacksonVersion = "2.10.4"
 val konfigVersion = "1.6.10.0"
 val kotlinLoggerVersion = "1.8.3"
+val coroutinesVersion = "1.3.7"
 
 val logback_version: String by project
 val ktor_version: String by project
@@ -45,13 +46,14 @@ dependencies {
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     implementation("io.cucumber:cucumber-junit:${cucumberVersion}")
     implementation("io.cucumber:cucumber-java8:${cucumberVersion}")
+    implementation("io.github.microutils:kotlin-logging:$kotlinLoggerVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.natpryce:konfig:$konfigVersion")
-    implementation("io.github.microutils:kotlin-logging:$kotlinLoggerVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src/kotlin")

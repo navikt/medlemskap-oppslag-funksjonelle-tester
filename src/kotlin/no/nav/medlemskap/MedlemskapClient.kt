@@ -20,11 +20,23 @@ class MedlemskapClient(
     private val httpClient: HttpClient
 ) {
 
-    suspend fun hentMedlemskap(): HttpResponse {
+    suspend fun hentMedlemskapForRequest(medlemskapRequest: MedlemskapRequest): HttpResponse {
         val token = azureAdClient.hentToken()
-        secureLogger.info("Hentet AzureAd-token")
+
+        return httpClient.post {
+            url("$baseUrl/")
+            header(HttpHeaders.Authorization, "Bearer ${token.token}")
+            header("Nav-Call-Id", "123456")
+            contentType(ContentType.Application.Json)
+            body = medlemskapRequest
+        }
+    }
+
+    suspend fun hentMedlemskap(fnr: String): HttpResponse {
+        val token = azureAdClient.hentToken()
+        println("hentet token")
         val medlemskapRequest = MedlemskapRequest(
-            "lastesFraVault",
+            fnr,
             MedlemskapRequest.Periode(LocalDate.now().minusDays(10), LocalDate.now()),
             MedlemskapRequest.BrukerInput(false)
         )
@@ -45,5 +57,4 @@ class MedlemskapClient(
             header(HttpHeaders.Accept, ContentType.Application.Json)
         }
     }
-
 }

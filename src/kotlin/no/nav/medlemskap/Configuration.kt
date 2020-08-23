@@ -9,6 +9,7 @@ private val logger = KotlinLogging.logger { }
 
 private val defaultProperties = ConfigurationMap(
     mapOf(
+        "MEDLEMSKAP_BASE_URL" to "localhost:8080/",
         "AZURE_TENANT" to "",
         "AZURE_AUTHORITY_ENDPOINT" to "",
         "SERVICE_USER_USERNAME" to "test",
@@ -17,7 +18,8 @@ private val defaultProperties = ConfigurationMap(
         "NAIS_APP_NAME" to "",
         "NAIS_CLUSTER_NAME" to "",
         "NAIS_APP_IMAGE" to "",
-        "AZURE_CLIENT_ID" to ""
+        "AZURE_CLIENT_ID" to "",
+        "TESTDATA" to ""
     )
 )
 
@@ -45,7 +47,9 @@ private fun String.readFile() =
 data class Configuration(
     val azureAd: AzureAd = AzureAd(),
     val cluster: String = "NAIS_CLUSTER_NAME".configProperty(),
-    val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty())
+    val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty()),
+    val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
+    val testperson: String = "/var/run/secrets/nais.io/test/testperson1".readFile() ?: "TESTDATA".configProperty()
 ) {
 
     data class AzureAd(
