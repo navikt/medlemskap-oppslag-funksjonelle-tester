@@ -42,7 +42,7 @@ spec:
             - -one-shot
             - -cn=secret:serviceuser/data/dev/srvmedlemskap-ft:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
             - -cn=secret:azuread/data/dev/creds/medlemskap-oppslag-funksjonelle-tester:dir=/var/run/secrets/nais.io/azuread,fmt=flatten
-            - -cn=secret:secret/medlemskap/test/:dir=/var/run/secrets/nais.io/test,fmt=flatten
+            - -cn=secret:secret/medlemskap/test/testpersoner/:dir=/var/run/secrets/nais.io/test,fmt=flatten
           env:
             - name: NAV_TRUSTSTORE_PATH
               value: /etc/ssl/certs/java/cacerts
@@ -64,9 +64,9 @@ spec:
             - mountPath: /var/run/secrets/nais.io/azuread
               name: vault-secrets
               subPath: subpath/var/run/secrets/nais.io/azuread
-            - mountPath: /var/run/secrets/nais.io/test
+            - mountPath: /var/run/secrets/nais.io/test/
               name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/test
+              subPath: subpath/var/run/secrets/nais.io/test/
       containers:
         - name: medlemskap-oppslag-funksjonelle-tester
           resources:
