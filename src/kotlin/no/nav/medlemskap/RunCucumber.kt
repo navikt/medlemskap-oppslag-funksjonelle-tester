@@ -33,7 +33,7 @@ suspend fun main() {
 
     val hentToken = azureAdClient.hentToken()
     println("Token type: " + hentToken.type)
-    val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient, httpClient)
+    val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient)
 
     val medlemskapResponse = medlemskapClient.hentMedlemskap(configuration.testperson)
     println("medlemskap-kall: " + medlemskapResponse.status.value + " " + medlemskapResponse.status.description)

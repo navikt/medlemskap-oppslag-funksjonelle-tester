@@ -16,7 +16,7 @@ class MedlemskapSteps() : No {
 
         private val configuration = Configuration()
         private val azureAdClient = AzureAdClient(configuration.azureAd)
-        private val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient, httpClient)
+        private val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient)
 
         fun sendMedlemskapRequest(medlemskapRequest: MedlemskapRequest): HttpResponse =
             runBlocking { medlemskapClient.hentMedlemskapForRequest(medlemskapRequest) }

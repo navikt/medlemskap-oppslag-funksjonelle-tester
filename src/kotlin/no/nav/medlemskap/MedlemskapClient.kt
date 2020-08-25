@@ -16,8 +16,7 @@ private val secureLogger = KotlinLogging.logger("tjenestekall")
 
 class MedlemskapClient(
     private val baseUrl: String,
-    private val azureAdClient: AzureAdClient,
-    private val httpClient: HttpClient
+    private val azureAdClient: AzureAdClient
 ) {
 
     suspend fun hentMedlemskapForRequest(medlemskapRequest: MedlemskapRequest): HttpResponse {
@@ -41,7 +40,9 @@ class MedlemskapClient(
             MedlemskapRequest.BrukerInput(false)
         )
 
-        return httpClient.post {
+        println("fnr.length: " + fnr.length)
+        println("kaller: $baseUrl/")
+        return apacheHttpClient.post {
             url("$baseUrl/")
             header(HttpHeaders.Authorization, "Bearer ${token.token}")
             header("Nav-Call-Id", "123456")
