@@ -37,7 +37,7 @@ class MedlemskapSteps() : No {
             val fraDatoAsDate = LocalDate.parse("2020-08-16", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             val tilDatoAsDate = LocalDate.parse("2020-08-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             medlemskapRequest = MedlemskapRequest(
-                configuration.testpersonMedMedlemskap,
+                configuration.testpersonUavklartMedlemskap,
                 MedlemskapRequest.Periode(fraDatoAsDate, tilDatoAsDate),
                 MedlemskapRequest.BrukerInput(false)
             )
