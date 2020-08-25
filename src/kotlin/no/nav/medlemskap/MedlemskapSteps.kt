@@ -2,14 +2,11 @@ package no.nav.medlemskap
 
 import io.cucumber.java8.No
 import kotlinx.coroutines.runBlocking
-import mu.KotlinLogging
 import org.junit.Assert
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MedlemskapSteps() : No {
-
-    private val logger = KotlinLogging.logger {}
 
     companion object {
 
@@ -30,13 +27,20 @@ class MedlemskapSteps() : No {
             val fraDatoAsDate = LocalDate.parse(fraDato, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             val tilDatoAsDate = LocalDate.parse(tilDato, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             medlemskapRequest = MedlemskapRequest(
-                configuration.testperson,
+                configuration.testpersonMedMedlemskap,
                 MedlemskapRequest.Periode(fraDatoAsDate, tilDatoAsDate),
                 MedlemskapRequest.BrukerInput(false)
             )
+        }
 
-            logger.info { "lager MedlemskapRequest for bruker med inputperiode: $fraDato - $tilDato" }
-            println("Lager MedlemskapRequest for bruker med inputperiode: $fraDato - $tilDato")
+        Gitt("en søker som har jobbet mindre enn 25% siste året") {
+            val fraDatoAsDate = LocalDate.parse("2020-08-16", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val tilDatoAsDate = LocalDate.parse("2020-08-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            medlemskapRequest = MedlemskapRequest(
+                configuration.testpersonMedMedlemskap,
+                MedlemskapRequest.Periode(fraDatoAsDate, tilDatoAsDate),
+                MedlemskapRequest.BrukerInput(false)
+            )
         }
 
         Når("medlemskap skal beregnes") {
