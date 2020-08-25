@@ -12,6 +12,6 @@ val args = arrayOf(
 )
 
 fun main() {
-    JUnitCore().run(AuthenticationTest::class.java)
+    JUnitCore.runClasses(AuthenticationTest::class.java)
     Main.main(*args)
 }
