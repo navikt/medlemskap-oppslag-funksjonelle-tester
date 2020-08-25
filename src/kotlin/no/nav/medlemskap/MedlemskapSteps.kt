@@ -1,7 +1,6 @@
 package no.nav.medlemskap
 
 import io.cucumber.java8.No
-import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import org.junit.Assert
@@ -18,13 +17,13 @@ class MedlemskapSteps() : No {
         private val azureAdClient = AzureAdClient(configuration.azureAd)
         private val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient)
 
-        fun sendMedlemskapRequest(medlemskapRequest: MedlemskapRequest): HttpResponse =
+        fun sendMedlemskapRequest(medlemskapRequest: MedlemskapRequest): MedlemskapResponse =
             runBlocking { medlemskapClient.hentMedlemskapForRequest(medlemskapRequest) }
     }
 
 
     private lateinit var medlemskapRequest: MedlemskapRequest
-    private lateinit var resultat: String
+    private lateinit var resultat: Medlemskapresultat
 
     init {
         Gitt("en søker med inputperiode fra {string} til {string}") { fraDato: String, tilDato: String ->
@@ -41,12 +40,11 @@ class MedlemskapSteps() : No {
         }
 
         Når("medlemskap skal beregnes") {
-            resultat = sendMedlemskapRequest(medlemskapRequest).content.toString()
-            Assert.assertFalse("Tomt resultat", resultat.isNullOrEmpty())
+            resultat = sendMedlemskapRequest(medlemskapRequest).resultat
         }
 
         Så("skal svaret være {string}") { svar: String ->
-            Assert.assertTrue(resultat.contains(svar))
+            Assert.assertEquals(svar, resultat.svar)
         }
     }
 }

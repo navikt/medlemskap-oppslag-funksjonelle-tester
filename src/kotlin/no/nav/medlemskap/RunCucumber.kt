@@ -1,15 +1,5 @@
 package no.nav.medlemskap
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import io.ktor.client.HttpClient
-import io.ktor.client.features.json.JacksonSerializer
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logger
-import io.ktor.client.features.logging.Logging
 import io.cucumber.core.cli.Main
 import mu.KotlinLogging
 
@@ -36,6 +26,6 @@ suspend fun main() {
     val medlemskapClient = MedlemskapClient(configuration.medlemskapBaseUrl, azureAdClient)
 
     val medlemskapResponse = medlemskapClient.hentMedlemskap(configuration.testperson)
-    println("medlemskap-kall: " + medlemskapResponse.status.value + " " + medlemskapResponse.status.description)
+    println("Resultat: " + medlemskapResponse.resultat.svar)
     Main.main(*args)
 }

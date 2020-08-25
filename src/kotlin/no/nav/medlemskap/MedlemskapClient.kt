@@ -1,16 +1,11 @@
 package no.nav.medlemskap
 
-import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.post
-import io.ktor.client.request.url
-import io.ktor.client.statement.HttpResponse
-import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.contentType
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import mu.KotlinLogging
 import java.time.LocalDate
+import java.util.*
 
 private val secureLogger = KotlinLogging.logger("tjenestekall")
 
@@ -19,19 +14,19 @@ class MedlemskapClient(
     private val azureAdClient: AzureAdClient
 ) {
 
-    suspend fun hentMedlemskapForRequest(medlemskapRequest: MedlemskapRequest): HttpResponse {
+    suspend fun hentMedlemskapForRequest(medlemskapRequest: MedlemskapRequest): MedlemskapResponse {
         val token = azureAdClient.hentToken()
 
         return httpClient.post {
             url("$baseUrl/")
             header(HttpHeaders.Authorization, "Bearer ${token.token}")
-            header("Nav-Call-Id", "123456")
+            header("Nav-Call-Id", UUID.randomUUID())
             contentType(ContentType.Application.Json)
             body = medlemskapRequest
         }
     }
 
-    suspend fun hentMedlemskap(fnr: String): HttpResponse {
+    suspend fun hentMedlemskap(fnr: String): MedlemskapResponse {
         val token = azureAdClient.hentToken()
         println("hentet token")
         val medlemskapRequest = MedlemskapRequest(
@@ -45,7 +40,7 @@ class MedlemskapClient(
         return apacheHttpClient.post {
             url("$baseUrl/")
             header(HttpHeaders.Authorization, "Bearer ${token.token}")
-            header("Nav-Call-Id", "123456")
+            header("Nav-Call-Id", UUID.randomUUID())
             contentType(ContentType.Application.Json)
             body = medlemskapRequest
         }
