@@ -20,7 +20,8 @@ private val defaultProperties = ConfigurationMap(
         "NAIS_APP_IMAGE" to "",
         "AZURE_CLIENT_ID" to "",
         "FNR_MED_MEDLEMSKAP" to "",
-        "FNR_UAVKLART_MEDLEMSKAP" to ""
+        "FNR_UAVKLART_MEDLEMSKAP" to "",
+        "EXPIRED_AZURE_AD_TOKEN" to ""
     )
 )
 
@@ -51,7 +52,8 @@ data class Configuration(
     val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty()),
     val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
     val testpersonMedMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_med_medlemskap".readFile() ?: "FNR_MED_MEDLEMSKAP".configProperty(),
-    val testpersonUavklartMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_uavklart_medlemskap".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty()
+    val testpersonUavklartMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_uavklart_medlemskap".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
+    val expiredAzureAdToken: String = "/var/run/secrets/nais.io/test/expired_azure_ad_token".readFile() ?: "EXPIRED_AZURE_AD_TOKEN".configProperty()
 ) {
 
     data class AzureAd(

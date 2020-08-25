@@ -43,6 +43,7 @@ spec:
             - -cn=secret:serviceuser/data/dev/srvmedlemskap-ft:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
             - -cn=secret:azuread/data/dev/creds/medlemskap-oppslag-funksjonelle-tester:dir=/var/run/secrets/nais.io/azuread,fmt=flatten
             - -cn=secret:secret/medlemskap/test/testpersoner/:dir=/var/run/secrets/nais.io/test,fmt=flatten
+            - -cn=secret:secret/medlemskap/test/test_tokens/:dir=/var/run/secrets/nais.io/test,fmt=flatten
           env:
             - name: VAULT_AUTH_METHOD
               value: kubernetes

@@ -7,6 +7,7 @@ val jacksonVersion = "2.10.4"
 val konfigVersion = "1.6.10.0"
 val kotlinLoggerVersion = "1.8.3"
 val coroutinesVersion = "1.3.7"
+val junitJupiterVersion = "5.6.2"
 
 val logback_version: String by project
 val ktor_version: String by project
@@ -54,6 +55,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.natpryce:konfig:$konfigVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+    implementation("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
+    implementation("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src/kotlin")

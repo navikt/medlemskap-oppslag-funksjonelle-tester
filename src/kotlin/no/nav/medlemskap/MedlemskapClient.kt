@@ -24,4 +24,16 @@ class MedlemskapClient(
             body = medlemskapRequest
         }
     }
+
+    suspend fun hentMedlemskapMedGittToken(medlemskapRequest: MedlemskapRequest, token: String): HttpResponse {
+        val randomUUID = UUID.randomUUID()
+        println("Kaller medlemskap-oppslag med Nav-Call-Id: $randomUUID")
+        return httpClient.post {
+            url("$baseUrl/")
+            header(HttpHeaders.Authorization, "Bearer $token")
+            header("Nav-Call-Id", randomUUID)
+            contentType(ContentType.Application.Json)
+            body = medlemskapRequest
+        }
+    }
 }

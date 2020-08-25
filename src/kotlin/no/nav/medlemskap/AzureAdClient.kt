@@ -23,6 +23,21 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
         }
     }
 
+    suspend fun hentTokenMedFeilAudience(): Token {
+        val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
+        val formUrlEncode = listOf(
+            "client_id" to configuration.clientId,
+            "scope" to "api://${configuration.clientId}/.default",
+            "client_secret" to configuration.clientSecret,
+            "grant_type" to "client_credentials"
+        ).formUrlEncode()
+
+        return apacheHttpClient.post {
+            url(azureAdUrl)
+            body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
+        }
+    }
+
     data class Token(
         @JsonProperty(value = "access_token", required = true)
         val token: String,

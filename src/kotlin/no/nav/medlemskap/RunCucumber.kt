@@ -1,7 +1,7 @@
 package no.nav.medlemskap
 
 import io.cucumber.core.cli.Main
-import mu.KotlinLogging
+import org.junit.runner.JUnitCore
 
 val args = arrayOf(
     "--threads", "2",
@@ -13,4 +13,5 @@ val args = arrayOf(
 
 fun main() {
     Main.main(*args)
+    JUnitCore().run(AuthenticationTest::class.java)
 }
