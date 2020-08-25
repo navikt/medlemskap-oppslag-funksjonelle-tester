@@ -13,6 +13,7 @@ class AuthenticationTest {
 
     @Test
     fun `invalid audience in token returns 401`() {
+        println("test run")
         val tokenMedFeilAudience = runBlocking { azureAdClient.hentTokenMedFeilAudience() }
         val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), tokenMedFeilAudience.token) }
         Assertions.assertEquals(401, medlemskapResponse.status)
