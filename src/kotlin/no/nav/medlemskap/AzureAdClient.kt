@@ -9,22 +9,7 @@ import java.time.LocalDateTime
 class AzureAdClient(private val configuration: Configuration.AzureAd) {
 
     suspend fun hentToken(): Token {
-
-        /*
-        POST
-        Headers:
-            Content-Type: application/x-www-form-urlencoded
-
-        Parameters:
-            clientid=<client_id>
-            scope=api://<client_id>/.default
-            client_secret=<client_secret>
-            grant_type=client_credentials
-         */
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
-
-        println("azureAdUrl: $azureAdUrl")
-
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,
             "scope" to "api://${configuration.audience}/.default",

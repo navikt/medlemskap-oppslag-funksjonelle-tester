@@ -2,7 +2,6 @@ package no.nav.medlemskap
 
 import java.time.LocalDate
 
-
 /*
 {
  "fnr":"lastesFraVault",

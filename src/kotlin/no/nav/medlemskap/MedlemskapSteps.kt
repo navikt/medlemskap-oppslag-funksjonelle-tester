@@ -27,8 +27,8 @@ class MedlemskapSteps() : No {
 
     init {
         Gitt("en søker med inputperiode fra {string} til {string}") { fraDato: String, tilDato: String ->
-            val fraDatoAsDate = LocalDate.parse(fraDato, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            val tilDatoAsDate = LocalDate.parse(tilDato, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            val fraDatoAsDate = LocalDate.parse(fraDato, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val tilDatoAsDate = LocalDate.parse(tilDato, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             medlemskapRequest = MedlemskapRequest(
                 configuration.testperson,
                 MedlemskapRequest.Periode(fraDatoAsDate, tilDatoAsDate),

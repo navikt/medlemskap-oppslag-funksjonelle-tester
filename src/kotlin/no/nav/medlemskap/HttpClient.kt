@@ -12,6 +12,7 @@ import mu.KotlinLogging
 import org.apache.http.impl.conn.SystemDefaultRoutePlanner
 import java.net.ProxySelector
 
+//Bruker apache mot Azure da den støtter proxy.
 internal val apacheHttpClient = HttpClient(Apache) {
     install(JsonFeature) {
         serializer = JacksonSerializer {
