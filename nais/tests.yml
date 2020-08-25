@@ -79,6 +79,8 @@ spec:
               value: https://login.microsoftonline.com
             - name: MEDLEMSKAP_BASE_URL
               value: https://medlemskap-oppslag.nais.preprod.local
+            - name: AZURE_MEDLEMSKAP_ID
+              value: 496b0ded-cfdb-4430-b7b6-b568504de005
             - name: CUCUMBER_ENV
               value: dev
             - name: NAV_TRUSTSTORE_PATH

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import io.ktor.client.request.*
 import io.ktor.content.*
 import io.ktor.http.*
-import mu.KotlinLogging
 import java.time.LocalDateTime
-
-private val sikkerlogg = KotlinLogging.logger("tjenestekall")
 
 class AzureAdClient(private val configuration: Configuration.AzureAd) {
 
@@ -25,16 +22,13 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
             grant_type=client_credentials
          */
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
-        val clientId = configuration.clientId
-        val clientSecret = configuration.clientSecret
 
         println("azureAdUrl: $azureAdUrl")
-        sikkerlogg.info("sikkerlogg endpoint: ${configuration.authorityEndpoint}")
 
         val formUrlEncode = listOf(
-            "client_id" to clientId,
-            "scope" to "api://$clientId/.default",
-            "client_secret" to clientSecret,
+            "client_id" to configuration.clientId,
+            "scope" to "api://${configuration.audience}/.default",
+            "client_secret" to configuration.clientSecret,
             "grant_type" to "client_credentials"
         ).formUrlEncode()
 
