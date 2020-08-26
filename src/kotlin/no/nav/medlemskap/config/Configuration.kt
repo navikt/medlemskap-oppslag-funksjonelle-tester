@@ -42,10 +42,9 @@ private fun hentCommitSha(image: String): String {
 
 private fun String.readFile() =
     try {
-        logger.info { "Leser fra azure-fil $this" }
         File(this).readText(Charsets.UTF_8)
     } catch (err: FileNotFoundException) {
-        logger.warn { "Azure fil ikke funnet" }
+        logger.warn { "Azure fil $this ikke funnet" }
         null
     }
 
