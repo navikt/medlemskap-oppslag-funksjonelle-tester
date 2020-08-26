@@ -8,6 +8,8 @@ val konfigVersion = "1.6.10.0"
 val kotlinLoggerVersion = "1.8.3"
 val coroutinesVersion = "1.3.7"
 val junitJupiterVersion = "5.6.2"
+val logbackVersion = "1.2.3"
+val logstashVersion = "6.4"
 
 val logback_version: String by project
 val ktor_version: String by project
@@ -48,6 +50,8 @@ dependencies {
     implementation("io.cucumber:cucumber-junit:${cucumberVersion}")
     implementation("io.cucumber:cucumber-java8:${cucumberVersion}")
     implementation("io.github.microutils:kotlin-logging:$kotlinLoggerVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("net.logstash.logback:logstash-logback-encoder:$logstashVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
