@@ -19,7 +19,7 @@ class AuthenticationTest {
         `no token returns 401`()
         `invalid audience in token returns 401`()
         `expired token returns 401`()
-        //`valid sts token returns 401`()
+        `valid sts token returns 401`()
     }
 
     private fun `no token returns 401`() {
