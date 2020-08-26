@@ -39,11 +39,4 @@ internal val httpClient = HttpClient {
                 .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
         }
     }
-    val sikkerlogg = KotlinLogging.logger("tjenestekall")
-    install(Logging) {
-        logger = object : Logger {
-            override fun log(message: String) = sikkerlogg.info { message }
-        }
-        level = LogLevel.ALL
-    }
 }
