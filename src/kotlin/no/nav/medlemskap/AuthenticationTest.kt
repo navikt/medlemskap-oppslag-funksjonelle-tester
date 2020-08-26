@@ -24,20 +24,20 @@ class AuthenticationTest {
 
     private fun `no token returns 401`() {
         val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), "") }
-        Assertions.assertEquals(401, medlemskapResponse.status)
+        Assertions.assertEquals(401, medlemskapResponse.status.value)
         println("No token in request returns 401")
     }
 
     private fun `invalid audience in token returns 401`() {
         val tokenMedFeilAudience = runBlocking { azureAdClient.hentTokenMedFeilAudience() }
         val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), tokenMedFeilAudience.token) }
-        Assertions.assertEquals(401, medlemskapResponse.status)
+        Assertions.assertEquals(401, medlemskapResponse.status.value)
         println("Invalid audience in token in request returns 401")
     }
 
     private fun `expired token returns 401`() {
         val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), configuration.expiredAzureAdToken) }
-        Assertions.assertEquals(401, medlemskapResponse.status, "Expired token returns: ${medlemskapResponse.status}")
+        Assertions.assertEquals(401, medlemskapResponse.status.value, "Expired token returns: ${medlemskapResponse.status}")
         println("Expired token in request returns 401")
     }
 
@@ -45,7 +45,7 @@ class AuthenticationTest {
         val stsRestClient = StsRestClient(configuration.sts.url, configuration.sts.serviceUsername, configuration.sts.password)
         val stsToken = runBlocking { stsRestClient.oidcToken() }
         val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), stsToken.token) }
-        Assertions.assertEquals(401, medlemskapResponse.status, "Valid STS token returns: ${medlemskapResponse.status}")
+        Assertions.assertEquals(401, medlemskapResponse.status.value, "Valid STS token returns: ${medlemskapResponse.status}")
         println("Valid STS-Token in request returns 401")
     }
 
