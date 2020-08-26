@@ -1,10 +1,10 @@
-package no.nav.medlemskap
+package no.nav.medlemskap.client
 
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import mu.KotlinLogging
-import java.time.LocalDate
+import no.nav.medlemskap.domene.MedlemskapRequest
+import no.nav.medlemskap.domene.MedlemskapResponse
 import java.util.*
 
 class MedlemskapClient(

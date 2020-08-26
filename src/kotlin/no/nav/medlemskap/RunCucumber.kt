@@ -12,6 +12,6 @@ val args = arrayOf(
 )
 
 fun main() {
-    JUnitCore.runClasses(AuthenticationTest::class.java)
-    Main.main(*args)
+    AuthenticationTest().runTests()
+    Main.main(*args) //Cucumber tests
 }

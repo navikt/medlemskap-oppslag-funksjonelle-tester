@@ -1,4 +1,4 @@
-package no.nav.medlemskap
+package no.nav.medlemskap.client
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MapperFeature

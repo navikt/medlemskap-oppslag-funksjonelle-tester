@@ -2,6 +2,12 @@ package no.nav.medlemskap
 
 import io.cucumber.java8.No
 import kotlinx.coroutines.runBlocking
+import no.nav.medlemskap.client.AzureAdClient
+import no.nav.medlemskap.client.MedlemskapClient
+import no.nav.medlemskap.config.Configuration
+import no.nav.medlemskap.domene.MedlemskapRequest
+import no.nav.medlemskap.domene.MedlemskapResponse
+import no.nav.medlemskap.domene.Medlemskapresultat
 import org.junit.Assert
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

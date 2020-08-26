@@ -82,6 +82,8 @@ spec:
               value: https://medlemskap-oppslag.nais.preprod.local
             - name: AZURE_MEDLEMSKAP_ID
               value: 496b0ded-cfdb-4430-b7b6-b568504de005
+            - name: SECURITY_TOKEN_SERVICE_REST_URL
+              value: http://security-token-service.default.svc.nais.local
             - name: CUCUMBER_ENV
               value: dev
             - name: NAV_TRUSTSTORE_PATH

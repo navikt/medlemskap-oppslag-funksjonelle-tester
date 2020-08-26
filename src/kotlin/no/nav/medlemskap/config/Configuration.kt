@@ -1,4 +1,4 @@
-package no.nav.medlemskap
+package no.nav.medlemskap.config
 
 import com.natpryce.konfig.*
 import mu.KotlinLogging
@@ -21,7 +21,10 @@ private val defaultProperties = ConfigurationMap(
         "AZURE_CLIENT_ID" to "",
         "FNR_MED_MEDLEMSKAP" to "",
         "FNR_UAVKLART_MEDLEMSKAP" to "",
-        "EXPIRED_AZURE_AD_TOKEN" to ""
+        "EXPIRED_AZURE_AD_TOKEN" to "",
+        "SECURITY_TOKEN_SERVICE_REST_URL" to "",
+        "SERVICEUSER_USERNAME" to "",
+        "SERVICEUSER_PASSWORD" to ""
     )
 )
 
@@ -53,7 +56,8 @@ data class Configuration(
     val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
     val testpersonMedMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_med_medlemskap".readFile() ?: "FNR_MED_MEDLEMSKAP".configProperty(),
     val testpersonUavklartMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_uavklart_medlemskap".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
-    val expiredAzureAdToken: String = "/var/run/secrets/nais.io/test/expired_azure_ad_token".readFile() ?: "EXPIRED_AZURE_AD_TOKEN".configProperty()
+    val expiredAzureAdToken: String = "/var/run/secrets/nais.io/test/expired_azure_ad_token".readFile() ?: "EXPIRED_AZURE_AD_TOKEN".configProperty(),
+    val sts: Sts = Sts()
 ) {
 
     data class AzureAd(
@@ -64,5 +68,11 @@ data class Configuration(
         val audience: String = "AZURE_MEDLEMSKAP_ID".configProperty(),
         val tenant: String = "AZURE_TENANT".configProperty(),
         val authorityEndpoint: String = "AZURE_AUTHORITY_ENDPOINT".configProperty().removeSuffix("/")
+    )
+
+    data class Sts(
+        val url: String = "SECURITY_TOKEN_SERVICE_REST_URL".configProperty(),
+        val serviceUsername: String = "/var/run/secrets/nais.io/service_user/username".readFile() ?: "SERVICEUSER_USERNAME",
+        val password: String = "/var/run/secrets/nais.io/service_user/password".readFile() ?: "SERVICEUSER_PASSWORD"
     )
 }
