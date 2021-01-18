@@ -49,6 +49,16 @@ class MedlemskapSteps() : No {
             )
         }
 
+        Gitt("en søker med gyldig oppholdstillatelse") {
+            val fraDatoAsDate = LocalDate.parse("2021-01-11", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val tilDatoAsDate = LocalDate.parse("2021-01-18", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            medlemskapRequest = MedlemskapRequest(
+                configuration.testpersonMedGyldigOppholdstillatelse,
+                MedlemskapRequest.Periode(fraDatoAsDate, tilDatoAsDate),
+                MedlemskapRequest.BrukerInput(false)
+            )
+        }
+
         Når("medlemskap skal beregnes") {
             resultat = sendMedlemskapRequest(medlemskapRequest).resultat
         }

@@ -11,3 +11,8 @@ Egenskap: Medlemskapsvurdering
     Gitt en søker som har jobbet mindre enn 25% siste året
     Når medlemskap skal beregnes
     Så skal svaret være "UAVKLART"
+
+  Scenario: En søker med statsborgerskap utenfor EØS med medlemskap
+    Gitt en søker med gyldig oppholdstillatelse
+    Når medlemskap skal beregnes
+    Så skal svaret være "JA"
