@@ -49,7 +49,7 @@ class MedlemskapSteps() : No {
             )
         }
 
-        Gitt("en søker med gyldig oppholdstillatelse") {
+        Gitt("en søker med gyldig oppholdstillatelse, men uten arbeidsomfang") {
             val fraDatoAsDate = LocalDate.parse("2021-01-11", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             val tilDatoAsDate = LocalDate.parse("2021-01-18", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             medlemskapRequest = MedlemskapRequest(
