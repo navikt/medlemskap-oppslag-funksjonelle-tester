@@ -13,6 +13,6 @@ Egenskap: Medlemskapsvurdering
     Så skal svaret være "UAVKLART"
 
   Scenario: En søker med statsborgerskap utenfor EØS med medlemskap
-    Gitt en søker med gyldig oppholdstillatelse
+    Gitt en søker med gyldig oppholdstillatelse, men uten arbeidsomfang
     Når medlemskap skal beregnes
-    Så skal svaret være "JA"
+    Så skal svaret være "UAVKLART"
