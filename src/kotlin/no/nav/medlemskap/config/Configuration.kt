@@ -62,10 +62,8 @@ data class Configuration(
 ) {
 
     data class AzureAd(
-        val clientId: String = "/var/run/secrets/nais.io/azuread/client_id".readFile()
-            ?: "AZURE_CLIENT_ID".configProperty(),
-        val clientSecret: String = "/var/run/secrets/nais.io/azuread/client_secret".readFile()
-            ?: "AZURE_CLIENT_SECRET".configProperty(),
+        val clientId: String = "AZURE_CLIENT_ID".configProperty(),
+        val clientSecret: String = "AZURE_CLIENT_SECRET".configProperty(),
         val audience: String = "AZURE_MEDLEMSKAP_ID".configProperty(),
         val tenant: String = "AZURE_TENANT".configProperty(),
         val authorityEndpoint: String = "AZURE_AUTHORITY_ENDPOINT".configProperty().removeSuffix("/")

@@ -7,11 +7,13 @@ Egenskap: Medlemskapsvurdering
     Når medlemskap skal beregnes
     Så skal svaret være "JA"
 
+  @ignored
   Scenario: En søker med uavklart medlemskap
     Gitt en søker som har jobbet mindre enn 25% siste året
     Når medlemskap skal beregnes
     Så skal svaret være "UAVKLART"
 
+  @ignored
   Scenario: En søker med statsborgerskap utenfor EØS med medlemskap
     Gitt en søker med gyldig oppholdstillatelse, men uten arbeidsomfang
     Når medlemskap skal beregnes
