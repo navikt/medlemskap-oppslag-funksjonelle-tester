@@ -24,46 +24,7 @@ spec:
         - name: gpr-credentials
       serviceAccountName: default
       restartPolicy: Never
-      initContainers:
-        - name: vks-init
-          image: navikt/vault-sidekick:v0.3.10-d122b16
-          resources:
-            limits:
-              cpu: "1"
-              memory: "1024Mi"
-            requests:
-              cpu: "0.5"
-              memory: "512Mi"
-          args:
-            - -v=10
-            - -logtostderr
-            - -vault=https://vault.adeo.no
-            - -save-token=/var/run/secrets/nais.io/vault/vault_token
-            - -one-shot
-            - -cn=secret:serviceuser/data/dev/srvmedlemskap-ft:dir=/var/run/secrets/nais.io/service_user,fmt=flatten
-            - -cn=secret:azuread/data/dev/creds/medlemskap-oppslag-funksjonelle-tester:dir=/var/run/secrets/nais.io/azuread,fmt=flatten
-            - -cn=secret:secret/medlemskap/test/testpersoner/:dir=/var/run/secrets/nais.io/test,fmt=flatten
-            - -cn=secret:secret/medlemskap/test/test_tokens/:dir=/var/run/secrets/nais.io/test,fmt=flatten
-          env:
-            - name: VAULT_AUTH_METHOD
-              value: kubernetes
-            - name: VAULT_SIDEKICK_ROLE
-              value: medlemskap-oppslag-funksjonelle-tester
-            - name: VAULT_K8S_LOGIN_PATH
-              value: auth/kubernetes/preprod/fss/login
-          volumeMounts:
-            - mountPath: /var/run/secrets/nais.io/vault
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/vault
-            - mountPath: /var/run/secrets/nais.io/service_user
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/service_user
-            - mountPath: /var/run/secrets/nais.io/azuread
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/azuread
-            - mountPath: /var/run/secrets/nais.io/test/
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/test/
+
       containers:
         - name: medlemskap-oppslag-funksjonelle-tester
           resources:
@@ -79,11 +40,11 @@ spec:
             - name: AZURE_AUTHORITY_ENDPOINT
               value: https://login.microsoftonline.com
             - name: MEDLEMSKAP_BASE_URL
-              value: https://api-gw-q2.oera.no/medlemskap-oppslag.dev.intern.nav.no
+              value: https://medlemskap-oppslag.dev.intern.nav.no
             - name: AZURE_MEDLEMSKAP_ID
               value: 496b0ded-cfdb-4430-b7b6-b568504de005
             - name: SECURITY_TOKEN_SERVICE_REST_URL
-              value: https://api-gw-q2.oera.no/security-token-service
+              value: https://api-gw-q1.oera.no/security-token-service
             - name: CUCUMBER_ENV
               value: dev
             - name: NAV_TRUSTSTORE_PATH
@@ -104,6 +65,9 @@ spec:
               value: localhost,127.0.0.1,10.254.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,.nais.io
             - name: JAVA_PROXY_OPTIONS
               value: -Dhttp.proxyHost=webproxy.nais -Dhttps.proxyHost=webproxy.nais -Dhttp.proxyPort=8088 -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=localhost|127.0.0.1|10.254.0.1|*.local|*.adeo.no|*.nav.no|*.aetat.no|*.devillo.no|*.oera.no|*.nais.io
+          envFrom:
+            - secretRef:
+                name: medlemskap-oppslag
           image: {{image}}
           imagePullPolicy: Always
           volumeMounts:
@@ -131,22 +95,7 @@ spec:
               name: ca-bundle-jks
               readOnly: true
               subPath: ca-bundle.jks
-            - mountPath: /var/run/secrets/nais.io/vault
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/vault
-            - mountPath: /var/run/secrets/nais.io/service_user
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/service_user
-            - mountPath: /var/run/secrets/nais.io/azuread
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/azuread
-            - mountPath: /var/run/secrets/nais.io/test
-              name: vault-secrets
-              subPath: subpath/var/run/secrets/nais.io/test
       volumes:
-        - name: vault-secrets
-          emptyDir:
-            medium: Memory
         - name: ca-bundle-pem
           configMap:
             defaultMode: 420
