@@ -12,6 +12,7 @@ val args = arrayOf(
 )
 
 fun main() {
-    AuthenticationTest().runTests()
-    Main.main(*args) //Cucumber tests
+    println("Hello world")
+//    AuthenticationTest().runTests()
+//    Main.main(*args) //Cucumber tests
 }
