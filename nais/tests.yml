@@ -17,7 +17,7 @@ spec:
       labels:
         team: medlemskap
         app: medlemskap-oppslag-funksjonelle-tester
-        jobcreator: {{app}}
+        jobcreator: medlemskap-oppslag-funksjonelle-tester
     spec:
       ttlSecondsAfterFinished: 600
       imagePullSecrets:
