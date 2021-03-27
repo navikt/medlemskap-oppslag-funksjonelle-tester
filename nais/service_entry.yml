@@ -10,14 +10,8 @@ spec:
   exportTo:
     - .
   hosts:
-    - aadcdn.msauth.net
-    - aadcdn.msauthimages.net
-    - aadcdn.msftauth.net
-    - device.login.microsoftonline.com
-    - login.live.com
+    - api-gw-q1.oera.no
     - login.microsoftonline.com
-    - login.microsoftonline.com
-    - www.office.com
   location: MESH_EXTERNAL
   ports:
     - name: https

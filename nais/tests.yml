@@ -6,7 +6,7 @@ metadata:
   labels:
     team: medlemskap
     app: medlemskap-oppslag-funksjonelle-tester
-    jobcreator: {{app}}
+    jobcreator: medlemskap-oppslag-funksjonelle-tester
 spec:
   backoffLimit: 2
   ttlSecondsAfterFinished: 600
