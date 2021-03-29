@@ -13,20 +13,6 @@ spec:
   ttlSecondsAfterFinished: 600
   activeDeadlineSeconds: 300
   restartPolicy: Never
-  accessPolicy:
-    outbound:
-      rules:
-        - application: medlemskap-oppslag
-      external:
-        - host: login.microsoftonline.com
-        - host: device.login.microsoftonline.com
-        - host: kabal.dev.nav.no
-        - host: www.office.com
-        - host: aadcdn.msauthimages.net
-        - host: aadcdn.msftauth.net
-        - host: aadcdn.msauth.net
-        - host: login.live.com
-        - host: secure.aadcdn.microsoftonline-p.com
   template:
     metadata:
       labels:
