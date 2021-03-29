@@ -6,7 +6,7 @@ metadata:
   labels:
     team: medlemskap
     app: medlemskap-oppslag-funksjonelle-tester
-    jobcreator: medlemskap-oppslag-funksjonelle-tester
+    jobcreator: {{app}}
 spec:
   backoffLimit: 2
   ttlSecondsAfterFinished: 600
@@ -17,7 +17,7 @@ spec:
       labels:
         team: medlemskap
         app: medlemskap-oppslag-funksjonelle-tester
-        jobcreator: medlemskap-oppslag-funksjonelle-tester
+        jobcreator: {{app}}
     spec:
       ttlSecondsAfterFinished: 600
       imagePullSecrets:
