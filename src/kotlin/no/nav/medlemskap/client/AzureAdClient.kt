@@ -9,6 +9,7 @@ import no.nav.medlemskap.domene.Token
 class AzureAdClient(private val configuration: Configuration.AzureAd) {
 
     suspend fun hentToken(): Token {
+        println("Henter token: ")
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,
