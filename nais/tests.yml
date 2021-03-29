@@ -9,6 +9,7 @@ metadata:
     jobcreator: {{app}}
 spec:
   backoffLimit: 2
+  completions: 1
   ttlSecondsAfterFinished: 600
   activeDeadlineSeconds: 300
   restartPolicy: Never
@@ -17,14 +18,16 @@ spec:
       labels:
         team: medlemskap
         app: medlemskap-oppslag-funksjonelle-tester
+        job-name: medlemskap-oppslag-funksjonelle-tester
         jobcreator: {{app}}
     spec:
       ttlSecondsAfterFinished: 600
       imagePullSecrets:
         - name: gpr-credentials
+      serviceAccount: default
       serviceAccountName: default
       restartPolicy: Never
-
+      dnsPolicy: ClusterFirst
       containers:
         - name: medlemskap-oppslag-funksjonelle-tester
           resources:
@@ -51,20 +54,6 @@ spec:
               value: /etc/ssl/certs/java/cacerts
             - name: NAV_TRUSTSTORE_PASSWORD
               value: changeme
-            - name: HTTP_PROXY
-              value: http://webproxy.nais:8088
-            - name: http_proxy
-              value: http://webproxy.nais:8088
-            - name: HTTPS_PROXY
-              value: http://webproxy.nais:8088
-            - name: https_proxy
-              value: http://webproxy.nais:8088
-            - name: NO_PROXY
-              value: localhost,127.0.0.1,10.254.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,.nais.io
-            - name: no_proxy
-              value: localhost,127.0.0.1,10.254.0.1,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,.nais.io
-            - name: JAVA_PROXY_OPTIONS
-              value: -Dhttp.proxyHost=webproxy.nais -Dhttps.proxyHost=webproxy.nais -Dhttp.proxyPort=8088 -Dhttps.proxyPort=8088 -Dhttp.nonProxyHosts=localhost|127.0.0.1|10.254.0.1|*.local|*.adeo.no|*.nav.no|*.aetat.no|*.devillo.no|*.oera.no|*.nais.io
           envFrom:
             - secretRef:
                 name: medlemskap-oppslag-funksjonelle-tester
