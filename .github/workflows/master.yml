@@ -52,5 +52,5 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/tests.yml,nais/network_policy.yml,nais/service_entry.yml
           PRINT_PAYLOAD: true
-          VAR: app=medlemskap-oppslag-funksjonelle-tester
+          VAR: app=medlemskap-oppslag-funksjonelle-tester,secretname=medlemskap-oppslag-funksjonelle-tester
         timeout-minutes: 5
