@@ -54,10 +54,10 @@ data class Configuration(
     val cluster: String = "NAIS_CLUSTER_NAME".configProperty(),
     val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty()),
     val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
-    val testpersonMedMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_med_medlemskap".readFile() ?: "FNR_MED_MEDLEMSKAP".configProperty(),
-    val testpersonUavklartMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_uavklart_medlemskap".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
-    val testpersonMedGyldigOppholdstillatelse: String = "/var/run/secrets/nais.io/test/fnr_med_gyldig_oppholdstillatelse".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
-    val expiredAzureAdToken: String = "/var/run/secrets/nais.io/test/expired_azure_ad_token".readFile() ?: "EXPIRED_AZURE_AD_TOKEN".configProperty(),
+    val testpersonMedMedlemskap: String = "fnr_med_medlemskap".configProperty(),
+    val testpersonUavklartMedlemskap: String = "fnr_uavklart_medlemskap".configProperty(),
+    val testpersonMedGyldigOppholdstillatelse: String = "fnr_med_gyldig_oppholdstillatelse".configProperty(),
+    val expiredAzureAdToken: String = "expired_azure_ad_token".configProperty(),
     val sts: Sts = Sts()
 ) {
 
@@ -71,7 +71,7 @@ data class Configuration(
 
     data class Sts(
         val url: String = "SECURITY_TOKEN_SERVICE_REST_URL".configProperty(),
-        val serviceUsername: String = "/var/run/secrets/nais.io/service_user/username".readFile() ?: "SERVICEUSER_USERNAME",
-        val password: String = "/var/run/secrets/nais.io/service_user/password".readFile() ?: "SERVICEUSER_PASSWORD"
+        val serviceUsername: String = "SERVICEUSER_USERNAME".configProperty(),
+        val password: String = "SERVICEUSER_PASSWORD".configProperty()
     )
 }
