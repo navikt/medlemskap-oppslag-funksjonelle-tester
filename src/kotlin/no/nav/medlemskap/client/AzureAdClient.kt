@@ -18,7 +18,7 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
             "grant_type" to "client_credentials"
         ).formUrlEncode()
 
-        return apacheHttpClient.post {
+        return httpClient.post {
             url(azureAdUrl)
             body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
         }
