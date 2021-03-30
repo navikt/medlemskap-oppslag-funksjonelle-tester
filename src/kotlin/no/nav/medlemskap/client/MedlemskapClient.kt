@@ -18,7 +18,7 @@ class MedlemskapClient(
         val token = azureAdClient.hentToken()
         val randomUUID = UUID.randomUUID()
         logger.info("Kaller medlemskap-oppslag med Nav-Call-Id: $randomUUID")
-        return apacheHttpClient.post {
+        return httpClient.post {
             url("$baseUrl/")
             header(HttpHeaders.Authorization, "Bearer ${token.token}")
             header("Nav-Call-Id", randomUUID)
