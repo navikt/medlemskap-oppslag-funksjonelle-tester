@@ -56,7 +56,7 @@ spec:
               value: changeme
           envFrom:
             - secretRef:
-                name: {{secretname}}
+                name: medlemskap-oppslag-funksjonelle-tester-secret
           image: {{image}}
           imagePullPolicy: Always
           volumeMounts:
