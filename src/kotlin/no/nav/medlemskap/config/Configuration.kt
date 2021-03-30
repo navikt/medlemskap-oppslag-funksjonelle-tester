@@ -54,10 +54,10 @@ data class Configuration(
     val cluster: String = "NAIS_CLUSTER_NAME".configProperty(),
     val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty()),
     val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
-    val testpersonMedMedlemskap: String = "fnr_med_medlemskap".configProperty(),
-    val testpersonUavklartMedlemskap: String = "fnr_uavklart_medlemskap".configProperty(),
-    val testpersonMedGyldigOppholdstillatelse: String = "fnr_med_gyldig_oppholdstillatelse".configProperty(),
-    val expiredAzureAdToken: String = "expired_azure_ad_token".configProperty(),
+    val testpersonMedMedlemskap: String = "FNR_MED_MEDLEMSKAP".configProperty(),
+    val testpersonUavklartMedlemskap: String = "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
+    val testpersonMedGyldigOppholdstillatelse: String = "FNR_MED_GYLDIG_OPPHOLDSTILLATELSE".configProperty(),
+    val expiredAzureAdToken: String = "EXPIRED_AZURE_AD_TOKEN".configProperty(),
     val sts: Sts = Sts()
 ) {
 
