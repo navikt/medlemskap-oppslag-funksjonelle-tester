@@ -35,7 +35,7 @@ spec:
               istio: ingressgateway
         - namespaceSelector:
             matchLabels:
-              name: istio-system
+              name: medlemskap
           podSelector:
             matchLabels:
               app: medlemskap-oppslag
@@ -60,7 +60,7 @@ spec:
     - from:
       - namespaceSelector:
           matchLabels:
-            name: istio-system
+            name: medlemskap
         podSelector:
           matchLabels:
             app: medlemskap-oppslag
