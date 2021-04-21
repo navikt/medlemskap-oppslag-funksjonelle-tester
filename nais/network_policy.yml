@@ -33,6 +33,12 @@ spec:
           podSelector:
             matchLabels:
               istio: ingressgateway
+        - namespaceSelector:
+            matchLabels:
+              name: istio-system
+          podSelector:
+            matchLabels:
+              app: medlemskap-oppslag
         - namespaceSelector: {}
           podSelector:
             matchLabels:
@@ -51,6 +57,13 @@ spec:
           podSelector:
             matchLabels:
               app: prometheus
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            name: istio-system
+        podSelector:
+          matchLabels:
+            app: medlemskap-oppslag
     - from:
         - namespaceSelector:
             matchLabels:
