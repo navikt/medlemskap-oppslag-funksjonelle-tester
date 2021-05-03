@@ -30,44 +30,37 @@ spec:
             - 192.168.0.0/16
   ingress:
     - from:
-        - namespaceSelector:
-            matchLabels:
-              name: istio-system
-          podSelector:
-            matchLabels:
-              app: prometheus
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              name: medlemskap
+      - namespaceSelector:
+          matchLabels:
+            name: medlemskap
           podSelector:
             matchLabels:
               app: medlemskap-oppslag
     - from:
-        - namespaceSelector:
-            matchLabels:
-              name: nais
-          podSelector:
-            matchLabels:
-              app: prometheus
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  linkerd.io/is-control-plane: "true"
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  linkerd.io/extension: viz
-              podSelector:
-                matchLabels:
-                  component: tap
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  linkerd.io/extension: viz
-              podSelector:
-                matchLabels:
-                  component: prometheus
+      - namespaceSelector:
+          matchLabels:
+            name: nais
+        podSelector:
+          matchLabels:
+            app: prometheus
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            linkerd.io/is-control-plane: "true"
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            linkerd.io/extension: viz
+        podSelector:
+          matchLabels:
+            component: tap
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            linkerd.io/extension: viz
+        podSelector:
+          matchLabels:
+            component: prometheus
   podSelector:
     matchLabels:
       app: medlemskap-oppslag-funksjonelle-tester
