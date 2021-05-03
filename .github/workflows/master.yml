@@ -50,7 +50,7 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_API_KEY }}
           CLUSTER: dev-gcp
-          RESOURCE: nais/tests.yml,nais/network_policy.yml,nais/service_entry.yml
+          RESOURCE: nais/tests.yml,nais/network_policy.yml
           PRINT_PAYLOAD: true
           VAR: app=medlemskap-oppslag-funksjonelle-tester,secretname=medlemskap-oppslag-funksjonelle-tester-secret
         timeout-minutes: 5

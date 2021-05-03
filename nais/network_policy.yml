@@ -11,44 +11,23 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              name: istio-system
-          podSelector:
-            matchLabels:
-              istio: istiod
-        - namespaceSelector:
-            matchLabels:
-              name: istio-system
-          podSelector:
-            matchLabels:
-              istio: pilot
-        - namespaceSelector:
-            matchLabels:
-              name: istio-system
-          podSelector:
-            matchLabels:
-              istio: mixer
-        - namespaceSelector:
-            matchLabels:
-              name: istio-system
-          podSelector:
-            matchLabels:
-              istio: ingressgateway
-        - namespaceSelector:
-            matchLabels:
               name: medlemskap
           podSelector:
             matchLabels:
               app: medlemskap-oppslag
-        - namespaceSelector: {}
+        - namespaceSelector:
+            matchLabels:
+              linkerd.io/is-control-plane: "true"
+        - namespaceSelector: { }
           podSelector:
             matchLabels:
               k8s-app: kube-dns
         - ipBlock:
             cidr: 0.0.0.0/0
             except:
-              - 10.6.0.0/15
-              - 172.16.0.0/12
-              - 192.168.0.0/16
+            - 10.6.0.0/15
+            - 172.16.0.0/12
+            - 192.168.0.0/16
   ingress:
     - from:
         - namespaceSelector:
@@ -58,19 +37,37 @@ spec:
             matchLabels:
               app: prometheus
     - from:
-      - namespaceSelector:
-          matchLabels:
-            name: medlemskap
-        podSelector:
-          matchLabels:
-            app: medlemskap-oppslag
+        - namespaceSelector:
+            matchLabels:
+              name: medlemskap
+          podSelector:
+            matchLabels:
+              app: medlemskap-oppslag
     - from:
         - namespaceSelector:
             matchLabels:
-              name: istio-system
+              name: nais
           podSelector:
             matchLabels:
-              istio: ingressgateway
+              app: prometheus
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  linkerd.io/is-control-plane: "true"
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  linkerd.io/extension: viz
+              podSelector:
+                matchLabels:
+                  component: tap
+        - from:
+            - namespaceSelector:
+                matchLabels:
+                  linkerd.io/extension: viz
+              podSelector:
+                matchLabels:
+                  component: prometheus
   podSelector:
     matchLabels:
       app: medlemskap-oppslag-funksjonelle-tester
