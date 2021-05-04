@@ -7,7 +7,6 @@ Egenskap: Medlemskapsvurdering
     Når medlemskap skal beregnes
     Så skal svaret være "JA"
 
-  @ignored
   Scenario: En søker med uavklart medlemskap
     Gitt en søker som har jobbet mindre enn 25% siste året
     Når medlemskap skal beregnes
