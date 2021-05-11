@@ -15,8 +15,7 @@ suspend fun shutdown() : HttpResponse {
 
 fun shutdownLinkerdSidecar() {
     runBlocking {
-        val response = shutdown()
-        println("statuscode: ${response.status.value}")
+        shutdown()
     }
 
 }
