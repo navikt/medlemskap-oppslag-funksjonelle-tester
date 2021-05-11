@@ -1,7 +1,7 @@
 package no.nav.medlemskap
 
 import io.cucumber.core.cli.Main
-import org.junit.runner.JUnitCore
+import no.nav.medlemskap.client.shutdownLinkerdSidecar
 import kotlin.system.exitProcess
 
 val args = arrayOf(
@@ -13,8 +13,8 @@ val args = arrayOf(
 )
 
 fun main() {
-    println("main: Kjører tester")
     AuthenticationTest().runTests()
     Main.main(*args) //Cucumber tests
+    shutdownLinkerdSidecar()
     exitProcess(0)
 }

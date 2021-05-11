@@ -52,6 +52,7 @@ data class Configuration(
     val cluster: String = "NAIS_CLUSTER_NAME".configProperty(),
     val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty()),
     val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
+    val linkerdSidecarBaseUrl: String = "LINKERD_SIDECAR_BASE_URL".configProperty(),
     val testpersonMedMedlemskap: String = "FNR_MED_MEDLEMSKAP".configProperty(),
     val testpersonUavklartMedlemskap: String = "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
     val testpersonMedGyldigOppholdstillatelse: String = "FNR_MED_GYLDIG_OPPHOLDSTILLATELSE".configProperty(),

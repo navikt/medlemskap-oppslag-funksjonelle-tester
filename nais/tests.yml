@@ -44,6 +44,8 @@ spec:
               value: https://login.microsoftonline.com
             - name: MEDLEMSKAP_BASE_URL
               value: http://medlemskap-oppslag
+            - name: LINKERD_SIDECAR_BASE_URL
+              value: http://localhost:4191
             - name: AZURE_MEDLEMSKAP_ID
               value: 496b0ded-cfdb-4430-b7b6-b568504de005
             - name: SECURITY_TOKEN_SERVICE_REST_URL
