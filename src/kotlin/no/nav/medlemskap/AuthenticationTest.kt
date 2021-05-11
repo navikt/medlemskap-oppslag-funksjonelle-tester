@@ -18,19 +18,18 @@ class AuthenticationTest {
     private val logger = KotlinLogging.logger { }
 
     fun runTests() {
-//          `no token returns 401`()
-//          `invalid audience in token returns 401`()
-//          `expired token returns 401`()
-//          `valid sts token returns 401`()
+        `no token returns 401`()
+        `invalid audience in token returns 401`()
+        `expired token returns 401`()
+        `valid sts token returns 401`()
     }
 
     private fun `no token returns 401`() {
         logger.info("no token returns 401")
 
         try {
-            val medlemskapResponse =
-                runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), "") }
-        } catch(ex: Exception) {
+            runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), "") }
+        } catch (ex: Exception) {
             logger.error("Kall til medlemskapClient kastet exception")
         }
 
@@ -40,22 +39,42 @@ class AuthenticationTest {
 
     private fun `invalid audience in token returns 401`() {
         val tokenMedFeilAudience = runBlocking { azureAdClient.hentTokenMedFeilAudience() }
-        val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), tokenMedFeilAudience.token) }
+        val medlemskapResponse = runBlocking {
+            medlemskapClient.hentMedlemskapMedGittToken(
+                gyldigMedlemskapRequest(),
+                tokenMedFeilAudience.token
+            )
+        }
         Assertions.assertEquals(401, medlemskapResponse.status.value)
         logger.info("Invalid audience in token in request returns 401")
     }
 
     private fun `expired token returns 401`() {
-        val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), configuration.expiredAzureAdToken) }
-        Assertions.assertEquals(401, medlemskapResponse.status.value, "Expired token returns: ${medlemskapResponse.status}")
+        val medlemskapResponse = runBlocking {
+            medlemskapClient.hentMedlemskapMedGittToken(
+                gyldigMedlemskapRequest(),
+                configuration.expiredAzureAdToken
+            )
+        }
+        Assertions.assertEquals(
+            401,
+            medlemskapResponse.status.value,
+            "Expired token returns: ${medlemskapResponse.status}"
+        )
         logger.info("Expired token in request returns 401")
     }
 
     private fun `valid sts token returns 401`() {
-        val stsRestClient = StsRestClient(configuration.sts.url, configuration.sts.serviceUsername, configuration.sts.password)
+        val stsRestClient =
+            StsRestClient(configuration.sts.url, configuration.sts.serviceUsername, configuration.sts.password)
         val stsToken = runBlocking { stsRestClient.oidcToken() }
-        val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), stsToken.token) }
-        Assertions.assertEquals(401, medlemskapResponse.status.value, "Valid STS token returns: ${medlemskapResponse.status}")
+        val medlemskapResponse =
+            runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), stsToken.token) }
+        Assertions.assertEquals(
+            401,
+            medlemskapResponse.status.value,
+            "Valid STS token returns: ${medlemskapResponse.status}"
+        )
         logger.info("Valid STS-Token in request returns 401")
     }
 

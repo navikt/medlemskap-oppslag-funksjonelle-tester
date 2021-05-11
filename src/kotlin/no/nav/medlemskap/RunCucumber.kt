@@ -17,13 +17,12 @@ val args = arrayOf(
 
 fun main() {
     AuthenticationTest().runTests()
-    val exitStatus = cucumberMainMethodWithLinkerdShutdown()
-
+    val exitStatus = runCucumberTests()
     shutdownLinkerdSidecar()
     exitProcess(exitStatus.toInt())
 }
 
-private fun cucumberMainMethodWithLinkerdShutdown(): Byte {
+private fun runCucumberTests(): Byte {
     val propertiesFileOptions = CucumberPropertiesParser()
         .parse(CucumberProperties.fromPropertiesFile())
         .build()
@@ -51,6 +50,5 @@ private fun cucumberMainMethodWithLinkerdShutdown(): Byte {
         .build()
 
     runtime.run()
-    val exitStatus = runtime.exitStatus()
-    return exitStatus
+    return runtime.exitStatus()
 }
