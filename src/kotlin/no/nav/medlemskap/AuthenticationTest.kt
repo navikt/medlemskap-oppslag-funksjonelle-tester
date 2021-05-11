@@ -21,20 +21,14 @@ class AuthenticationTest {
         `no token returns 401`()
         `invalid audience in token returns 401`()
         `expired token returns 401`()
-        `valid sts token returns 401`()
+        //`valid sts token returns 401`() (Oppsett for STS med servicebruker ikke ferdig enda for GCP)
     }
 
     private fun `no token returns 401`() {
-        logger.info("no token returns 401")
 
-        try {
+        val medlemskapResponse =
             runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), "") }
-        } catch (ex: Exception) {
-            logger.error("Kall til medlemskapClient kastet exception")
-        }
-
-//        Assertions.assertEquals(401, medlemskapResponse.status.value)
-        logger.info("No token in request returns 401")
+        Assertions.assertEquals(401, medlemskapResponse.status.value)
     }
 
     private fun `invalid audience in token returns 401`() {
@@ -46,7 +40,6 @@ class AuthenticationTest {
             )
         }
         Assertions.assertEquals(401, medlemskapResponse.status.value)
-        logger.info("Invalid audience in token in request returns 401")
     }
 
     private fun `expired token returns 401`() {
@@ -61,7 +54,6 @@ class AuthenticationTest {
             medlemskapResponse.status.value,
             "Expired token returns: ${medlemskapResponse.status}"
         )
-        logger.info("Expired token in request returns 401")
     }
 
     private fun `valid sts token returns 401`() {
@@ -75,7 +67,6 @@ class AuthenticationTest {
             medlemskapResponse.status.value,
             "Valid STS token returns: ${medlemskapResponse.status}"
         )
-        logger.info("Valid STS-Token in request returns 401")
     }
 
     private fun gyldigMedlemskapRequest(): MedlemskapRequest {
