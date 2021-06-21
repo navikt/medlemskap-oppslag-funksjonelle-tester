@@ -63,7 +63,7 @@ data class Configuration(
     data class AzureAd(
         val clientId: String = "AZURE_CLIENT_ID".configProperty(),
         val clientSecret: String = "AZURE_CLIENT_SECRET".configProperty(),
-        val audience: String = "AZURE_MEDLEMSKAP_ID".configProperty(),
+        val audience: String = "MEDLEMSKAP_OPPSLAG_CLIENT_ID".configProperty(),
         val tenant: String = "AZURE_TENANT".configProperty(),
         val authorityEndpoint: String = "AZURE_AUTHORITY_ENDPOINT".configProperty().removeSuffix("/")
     )

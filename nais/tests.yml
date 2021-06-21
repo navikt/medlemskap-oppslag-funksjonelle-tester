@@ -8,9 +8,6 @@ metadata:
     app: medlemskap-oppslag-funksjonelle-tester
     jobcreator: {{app}}
 spec:
-  azure:
-    application:
-      enabled: true
   backoffLimit: 2
   completions: 1
   ttlSecondsAfterFinished: 600
