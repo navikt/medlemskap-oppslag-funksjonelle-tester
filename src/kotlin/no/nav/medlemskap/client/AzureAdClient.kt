@@ -1,6 +1,7 @@
 package no.nav.medlemskap.client
 
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.content.*
 import io.ktor.http.*
 import no.nav.medlemskap.config.Configuration
@@ -23,7 +24,7 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
         }
     }
 
-    suspend fun hentTokenMedFeilAudience(): Token {
+    suspend fun hentTokenMedFeilAudience(): HttpResponse {
         val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,

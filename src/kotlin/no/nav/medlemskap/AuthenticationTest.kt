@@ -19,7 +19,7 @@ class AuthenticationTest {
 
     fun runTests() {
         `no token returns 401`()
-        `invalid audience in token returns 401`()
+        `invalid audience in token returns 400`()
         `expired token returns 401`()
         `valid sts token returns 401`()
     }
@@ -30,11 +30,10 @@ class AuthenticationTest {
         logger.info("No token in request returns 401")
     }
 
-    private fun `invalid audience in token returns 401`() {
+    private fun `invalid audience in token returns 400`() {
         val tokenMedFeilAudience = runBlocking { azureAdClient.hentTokenMedFeilAudience() }
-        val medlemskapResponse = runBlocking { medlemskapClient.hentMedlemskapMedGittToken(gyldigMedlemskapRequest(), tokenMedFeilAudience.token) }
-        Assertions.assertEquals(401, medlemskapResponse.status.value)
-        logger.info("Invalid audience in token in request returns 401")
+        Assertions.assertEquals(400, tokenMedFeilAudience.status.value)
+        logger.info("Invalid audience in token in request returns 400")
     }
 
     private fun `expired token returns 401`() {
