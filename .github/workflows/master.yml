@@ -28,13 +28,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker build -t $IMAGE .
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-          docker push $IMAGE
+          echo ${GITHUB_TOKEN} | docker login ghcr.io --username ${GITHUB_REPOSITORY} --password-stdin
+          docker build --tag ${IMAGE} .
+          docker push ${IMAGE}
       - name: Upload testjob.yaml
         uses: actions/upload-artifact@v1
         with:
-          name: job-yaml
+          name: naisjob-yaml
           path: nais
   run:
     name: Run tests as a Job
@@ -44,7 +44,7 @@ jobs:
       - name: Fetch job yml
         uses: actions/download-artifact@v1
         with:
-          name: job-yaml
+          name: naisjob-yaml
           path: nais
       - uses: nais/deploy/actions/deploy@v1
         env:
