@@ -1,97 +1,33 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: nais.io/v1
+kind: Naisjob
 metadata:
   name: medlemskap-oppslag-funksjonelle-tester
   namespace: medlemskap
   labels:
     team: medlemskap
-    app: medlemskap-oppslag-funksjonelle-tester
-    jobcreator: {{app}}
 spec:
+  accessPolicy:
+    outbound:
+      rules:
+        application: medlemskap-oppslag
+  activeDeadlineSeconds: 150
+  azure:
+    application:
+      enabled: true
   backoffLimit: 2
   completions: 1
-  ttlSecondsAfterFinished: 600
-  activeDeadlineSeconds: 300
+  env:
+    - name: MEDLEMSKAP_BASE_URL
+      value: http://medlemskap-oppslag
+    - name: LINKERD_SIDECAR_BASE_URL
+      value: http://localhost:4191
+    - name: SECURITY_TOKEN_SERVICE_REST_URL
+      value: https://api-gw-q1.oera.no/security-token-service
+    - name: CUCUMBER_ENV
+      value: dev
+  envFrom:
+    - secretRef:
+        name: medlemskap-oppslag-funksjonelle-tester-secrets
   restartPolicy: Never
-  template:
-    metadata:
-      labels:
-        team: medlemskap
-        app: medlemskap-oppslag-funksjonelle-tester
-        job-name: medlemskap-oppslag-funksjonelle-tester
-        jobcreator: {{app}}
-    spec:
-      ttlSecondsAfterFinished: 600
-      imagePullSecrets:
-        - name: gpr-credentials
-      serviceAccount: default
-      serviceAccountName: default
-      restartPolicy: Never
-      dnsPolicy: ClusterFirst
-      containers:
-        - name: medlemskap-oppslag-funksjonelle-tester
-          resources:
-            limits:
-              cpu: "1"
-              memory: "1024Mi"
-            requests:
-              cpu: "0.5"
-              memory: "512Mi"
-          env:
-            - name: AZURE_TENANT
-              value: 966ac572-f5b7-4bbe-aa88-c76419c0f851
-            - name: AZURE_AUTHORITY_ENDPOINT
-              value: https://login.microsoftonline.com
-            - name: MEDLEMSKAP_BASE_URL
-              value: http://medlemskap-oppslag
-            - name: LINKERD_SIDECAR_BASE_URL
-              value: http://localhost:4191
-            - name: AZURE_MEDLEMSKAP_ID
-              value: 2719da58-489e-4185-9ee6-74b7e93763d2
-            - name: SECURITY_TOKEN_SERVICE_REST_URL
-              value: https://api-gw-q1.oera.no/security-token-service
-            - name: CUCUMBER_ENV
-              value: dev
-            - name: NAV_TRUSTSTORE_PATH
-              value: /etc/ssl/certs/java/cacerts
-            - name: NAV_TRUSTSTORE_PASSWORD
-              value: changeme
-          envFrom:
-            - secretRef:
-                name: medlemskap-oppslag-funksjonelle-tester-secrets
-          image: {{image}}
-          imagePullPolicy: Always
-          volumeMounts:
-            - mountPath: /etc/ssl/certs/ca-certificates.crt
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/pki/tls/certs/ca-bundle.crt
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/ssl/ca-bundle.pem
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/pki/tls/cacert.pem
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-              name: ca-bundle-pem
-              readOnly: true
-              subPath: ca-bundle.pem
-            - mountPath: /etc/ssl/certs/java/cacerts
-              name: ca-bundle-jks
-              readOnly: true
-              subPath: ca-bundle.jks
-      volumes:
-        - name: ca-bundle-pem
-          configMap:
-            defaultMode: 420
-            name: ca-bundle-pem
-        - name: ca-bundle-jks
-          configMap:
-            defaultMode: 420
-            name: ca-bundle-jks
+  ttlSecondsAfterFinished: 400
+  image: {{image}}

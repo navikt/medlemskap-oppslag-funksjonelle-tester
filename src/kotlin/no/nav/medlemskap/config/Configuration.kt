@@ -10,7 +10,6 @@ private val logger = KotlinLogging.logger { }
 private val defaultProperties = ConfigurationMap(
     mapOf(
         "MEDLEMSKAP_BASE_URL" to "localhost:8080/",
-        "AZURE_TENANT" to "",
         "AZURE_AUTHORITY_ENDPOINT" to "",
         "MEDLEMSKAP_REGLER_URL" to "",
         "NAIS_APP_NAME" to "",
@@ -61,11 +60,10 @@ data class Configuration(
 ) {
 
     data class AzureAd(
-        val clientId: String = "AZURE_CLIENT_ID".configProperty(),
-        val clientSecret: String = "AZURE_CLIENT_SECRET".configProperty(),
+        val clientId: String = "AZURE_APP_CLIENT_ID".configProperty(),
+        val clientSecret: String = "AZURE_APP_CLIENT_SECRET".configProperty(),
         val audience: String = "MEDLEMSKAP_OPPSLAG_CLIENT_ID".configProperty(),
-        val tenant: String = "AZURE_TENANT".configProperty(),
-        val authorityEndpoint: String = "AZURE_AUTHORITY_ENDPOINT".configProperty().removeSuffix("/")
+        val tokenEndpoint: String = "AZURE_OPENID_CONFIG_TOKEN_ENDPOINT".configProperty().removeSuffix("/")
     )
 
     data class Sts(

@@ -9,7 +9,6 @@ import no.nav.medlemskap.domene.Token
 class AzureAdClient(private val configuration: Configuration.AzureAd) {
 
     suspend fun hentToken(): Token {
-        val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,
             "scope" to "api://${configuration.audience}/.default",
@@ -18,13 +17,13 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
         ).formUrlEncode()
 
         return httpClient.post {
-            url(azureAdUrl)
+            url(configuration.tokenEndpoint)
             body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
         }
     }
 
     suspend fun hentTokenMedFeilAudience(): Token {
-        val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
+
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,
             "scope" to "api://${configuration.clientId}/.default",
@@ -33,7 +32,7 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
         ).formUrlEncode()
 
         return apacheHttpClient.post {
-            url(azureAdUrl)
+            url(configuration.tokenEndpoint)
             body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
         }
     }
