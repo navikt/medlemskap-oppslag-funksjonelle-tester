@@ -9,7 +9,7 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        application: medlemskap-oppslag
+      - application: medlemskap-oppslag
   activeDeadlineSeconds: 150
   azure:
     application:
@@ -30,3 +30,4 @@ spec:
         name: medlemskap-oppslag-funksjonelle-tester-secrets
   restartPolicy: Never
   ttlSecondsAfterFinished: 400
+  image: {{image}}
