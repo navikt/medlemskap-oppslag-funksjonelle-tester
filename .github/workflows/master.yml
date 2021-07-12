@@ -3,7 +3,7 @@ name: Build and deploy
 on: [push, workflow_dispatch]
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/medlemskap-oppslag-funksjonelle-tester:${{ github.sha }}
+  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
 jobs:
   build:
     name: Build tests, package tests in docker image and push docker image
