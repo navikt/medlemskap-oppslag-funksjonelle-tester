@@ -1,7 +1,6 @@
 package no.nav.medlemskap.client
 
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.content.*
 import io.ktor.http.*
 import no.nav.medlemskap.config.Configuration
@@ -10,7 +9,6 @@ import no.nav.medlemskap.domene.Token
 class AzureAdClient(private val configuration: Configuration.AzureAd) {
 
     suspend fun hentToken(): Token {
-        val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,
             "scope" to "api://${configuration.audience}/.default",
@@ -18,14 +16,14 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
             "grant_type" to "client_credentials"
         ).formUrlEncode()
 
-        return apacheHttpClient.post {
-            url(azureAdUrl)
+        return httpClient.post {
+            url(configuration.tokenEndpoint)
             body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
         }
     }
 
-    suspend fun hentTokenMedFeilAudience(): HttpResponse {
-        val azureAdUrl = "${configuration.authorityEndpoint}/${configuration.tenant}/oauth2/v2.0/token"
+    suspend fun hentTokenMedFeilAudience(): Token {
+
         val formUrlEncode = listOf(
             "client_id" to configuration.clientId,
             "scope" to "api://${configuration.clientId}/.default",
@@ -34,7 +32,7 @@ class AzureAdClient(private val configuration: Configuration.AzureAd) {
         ).formUrlEncode()
 
         return apacheHttpClient.post {
-            url(azureAdUrl)
+            url(configuration.tokenEndpoint)
             body = TextContent(formUrlEncode, ContentType.Application.FormUrlEncoded)
         }
     }

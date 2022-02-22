@@ -10,11 +10,8 @@ private val logger = KotlinLogging.logger { }
 private val defaultProperties = ConfigurationMap(
     mapOf(
         "MEDLEMSKAP_BASE_URL" to "localhost:8080/",
-        "AZURE_TENANT" to "",
         "AZURE_AUTHORITY_ENDPOINT" to "",
-        "SERVICE_USER_USERNAME" to "test",
         "MEDLEMSKAP_REGLER_URL" to "",
-        "SERVICE_USER_PASSWORD" to "",
         "NAIS_APP_NAME" to "",
         "NAIS_CLUSTER_NAME" to "",
         "NAIS_APP_IMAGE" to "",
@@ -54,26 +51,24 @@ data class Configuration(
     val cluster: String = "NAIS_CLUSTER_NAME".configProperty(),
     val commitSha: String = hentCommitSha("NAIS_APP_IMAGE".configProperty()),
     val medlemskapBaseUrl: String = "MEDLEMSKAP_BASE_URL".configProperty(),
-    val testpersonMedMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_med_medlemskap".readFile() ?: "FNR_MED_MEDLEMSKAP".configProperty(),
-    val testpersonUavklartMedlemskap: String = "/var/run/secrets/nais.io/test/fnr_uavklart_medlemskap".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
-    val testpersonMedGyldigOppholdstillatelse: String = "/var/run/secrets/nais.io/test/fnr_med_gyldig_oppholdstillatelse".readFile() ?: "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
-    val expiredAzureAdToken: String = "/var/run/secrets/nais.io/test/expired_azure_ad_token".readFile() ?: "EXPIRED_AZURE_AD_TOKEN".configProperty(),
+    val linkerdSidecarBaseUrl: String = "LINKERD_SIDECAR_BASE_URL".configProperty(),
+    val testpersonMedMedlemskap: String = "FNR_MED_MEDLEMSKAP".configProperty(),
+    val testpersonUavklartMedlemskap: String = "FNR_UAVKLART_MEDLEMSKAP".configProperty(),
+    val testpersonMedGyldigOppholdstillatelse: String = "FNR_MED_GYLDIG_OPPHOLDSTILLATELSE".configProperty(),
+    val expiredAzureAdToken: String = "EXPIRED_AZURE_AD_TOKEN".configProperty(),
     val sts: Sts = Sts()
 ) {
 
     data class AzureAd(
-        val clientId: String = "/var/run/secrets/nais.io/azuread/client_id".readFile()
-            ?: "AZURE_CLIENT_ID".configProperty(),
-        val clientSecret: String = "/var/run/secrets/nais.io/azuread/client_secret".readFile()
-            ?: "AZURE_CLIENT_SECRET".configProperty(),
-        val audience: String = "AZURE_MEDLEMSKAP_ID".configProperty(),
-        val tenant: String = "AZURE_TENANT".configProperty(),
-        val authorityEndpoint: String = "AZURE_AUTHORITY_ENDPOINT".configProperty().removeSuffix("/")
+        val clientId: String = "AZURE_APP_CLIENT_ID".configProperty(),
+        val clientSecret: String = "AZURE_APP_CLIENT_SECRET".configProperty(),
+        val audience: String = "MEDLEMSKAP_OPPSLAG_CLIENT_ID".configProperty(),
+        val tokenEndpoint: String = "AZURE_OPENID_CONFIG_TOKEN_ENDPOINT".configProperty().removeSuffix("/")
     )
 
     data class Sts(
         val url: String = "SECURITY_TOKEN_SERVICE_REST_URL".configProperty(),
-        val serviceUsername: String = "/var/run/secrets/nais.io/service_user/username".readFile() ?: "SERVICEUSER_USERNAME",
-        val password: String = "/var/run/secrets/nais.io/service_user/password".readFile() ?: "SERVICEUSER_PASSWORD"
+        val serviceUsername: String = "SERVICEUSER_USERNAME".configProperty(),
+        val password: String = "SERVICEUSER_PASSWORD".configProperty()
     )
 }
