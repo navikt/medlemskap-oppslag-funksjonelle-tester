@@ -26,8 +26,7 @@ spec:
     - name: CUCUMBER_ENV
       value: dev
   envFrom:
-    - secretRef:
-        name: medlemskap-oppslag-funksjonelle-tester-secrets
+    - secret: medlemskap-oppslag-funksjonelle-tester-secrets
   restartPolicy: Never
   ttlSecondsAfterFinished: 400
   image: {{image}}
