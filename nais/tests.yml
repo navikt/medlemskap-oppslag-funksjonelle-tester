@@ -8,6 +8,8 @@ metadata:
     app: medlemskap-oppslag-funksjonelle-tester
     jobcreator: {{app}}
 spec:
+  envFrom:
+    - secret: medlemskap-oppslag-funksjonelle-tester
   backoffLimit: 2
   ttlSecondsAfterFinished: 600
   activeDeadlineSeconds: 300
